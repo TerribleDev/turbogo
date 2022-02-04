@@ -10,15 +10,20 @@ import (
 )
 
 func main() {
+	token := os.Getenv("API_TOKEN")
+	if token == "" {
+		token = "ckynqopsk0002zp6ehp2n6d5n"
+	}
 	app := fiber.New()
 	app.Use(logger.New(logger.Config{
 		// log query string parameters
 		Format: "[${ip}]:${port} ${status} - ${method} ${path} - ${queryParams}\n",
 	}))
 	app.Use(func(c *fiber.Ctx) error {
-		token := os.Getenv("API_TOKEN")
-		if token == "" {
-			token = "ckynqopsk0002zp6ehp2n6d5n"
+		authHeader := c.Get("Authorization")
+		if authHeader != "Bearer "+token {
+			c.Status(401).SendString("Unauthorized")
+			return nil
 		}
 		return c.Next()
 	})
