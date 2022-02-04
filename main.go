@@ -12,7 +12,8 @@ import (
 func main() {
 	token := os.Getenv("API_TOKEN")
 	if token == "" {
-		token = "ckynqopsk0002zp6ehp2n6d5n"
+		log.Fatal("API_TOKEN is required")
+		os.Exit(1)
 	}
 	app := fiber.New()
 	app.Use(logger.New(logger.Config{
