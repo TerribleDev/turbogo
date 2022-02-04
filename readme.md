@@ -1,3 +1,3 @@
 ## What is this?
 
-An extremely rudimentry turborepo server. You probably shouldn't use it
+An extremely rudimentary turborepo server using go fibers. You probably shouldn't use it
